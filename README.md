@@ -4,12 +4,12 @@
 
 <p align="center">
   <a href="https://github.com/intility/cust-devplatform-plugin/issues">
-    <img src="https://img.shields.io/badge/Status-Early%20Alpha-F97316?style=for-the-badge" alt="Status: Early Alpha" />
+    <img src="https://img.shields.io/badge/Status-Early%20Alpha-FFDB70?style=for-the-badge&labelColor=4D3200" alt="Status: Early Alpha" />
   </a>
   <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-A78BFA?style=for-the-badge" alt="License: MIT" />
+    <img src="https://img.shields.io/badge/License-MIT-AD8AFF?style=for-the-badge&labelColor=2B1E62" alt="License: MIT" />
   </a>
-  <img src="https://img.shields.io/badge/Claude%20Code-Plugin-38BDF8?style=for-the-badge" alt="Claude Code Plugin" />
+  <img src="https://img.shields.io/badge/Claude%20Code-Plugin-0DF2D7?style=for-the-badge&labelColor=003C42" alt="Claude Code Plugin" />
 </p>
 
 <p align="center">
@@ -137,5 +137,5 @@ For platform-level problems (cluster won't provision, gateways missing, can't lo
 ---
 
 <p align="center">
-  <sub>Built by Intility · Powered by <a href="https://claude.com/claude-code">Claude Code</a></sub>
+  <sub>Built by Intility · Styled with <a href="https://bifrost.intility.com">Bifrost</a> · Powered by <a href="https://claude.com/claude-code">Claude Code</a></sub>
 </p>
