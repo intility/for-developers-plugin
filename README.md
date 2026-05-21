@@ -2,26 +2,11 @@
   <img src="assets/banner.svg" alt="Developer Platform Plugin — Claude's guide to the Intility Developer Platform." width="100%" />
 </p>
 
-<p align="center">
-  <a href="https://github.com/intility/cust-devplatform-plugin/issues">
-    <img src="https://img.shields.io/badge/Status-Early%20Alpha-FF6BC4?style=for-the-badge&labelColor=590D44" alt="Status: Early Alpha" />
-  </a>
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-AD8AFF?style=for-the-badge&labelColor=2B1E62" alt="License: MIT" />
-  </a>
-  <img src="https://img.shields.io/badge/Claude%20Code-Plugin-0DF2D7?style=for-the-badge&labelColor=003C42" alt="Claude Code Plugin" />
-</p>
 
-<p align="center">
-  <strong>A Claude Code plugin that turns</strong> <em>"I have a Docker image"</em><br/>
-  <strong>into</strong> <em>"my app is live at <code>https://myapp.apps.example.com</code>"</em>.<br/>
-  <br/>
-  No manifests to write. No YAML to memorize. No Kubernetes book on the shelf.
-</p>
 
----
 
 > ⚠️ **Early alpha.** This is the first cut of customer-facing skills for the Intility Developer Platform. Skill names, prompts, defaults, and behaviours will change as we learn. Don't depend on it for anything critical yet — but please [open an issue](https://github.com/intility/cust-devplatform-plugin/issues) when something feels off, surprises you, or could be clearer. That feedback is the whole point of an alpha.
+
 
 ## Features
 
@@ -34,27 +19,18 @@
 
 ## Quick start
 
-**1. Install the prerequisites**
-
-- [`indev`](https://developers.intility.com) — the Intility Developer Platform CLI
-- [`oc`](https://developers.intility.com) — the OpenShift CLI
-
-**2. Install this plugin**
+**1. Install this plugin**
 
 ```bash
-# If your team has the Intility marketplace configured:
 /plugin marketplace add intility
 /plugin install cust-devplatform-plugin@intility
 
-# Or clone it directly:
-git clone https://github.com/intility/cust-devplatform-plugin \
-  ~/.claude/plugins/cust-devplatform-plugin
 ```
 
-**3. Tell Claude what you want**
+**2. Tell Claude what you want**
 
 ```
-help me ship my app on Intility
+help me ship my app on Intility Developer PLatform
 ```
 
 That's the whole thing. The plugin detects where you are in the journey and walks you through the rest.
@@ -133,9 +109,3 @@ For platform-level problems (cluster won't provision, gateways missing, can't lo
 ## License
 
 [MIT](LICENSE) — use it, fork it, ship it.
-
----
-
-<p align="center">
-  <sub>Built by Intility · Styled with <a href="https://bifrost.intility.com">Bifrost</a> · Powered by <a href="https://claude.com/claude-code">Claude Code</a></sub>
-</p>
