@@ -55,12 +55,11 @@
     <line x1="0"   y1="40"  x2="80"  y2="75"  stroke="#ffffff" stroke-width="0.4" opacity="0.18"/>
   </g>
 
-  <!-- Text block -->
-  <text x="280" y="120" font-family="'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="500" fill="#8a98a8">Your companion for the</text>
-  <text x="280" y="180" font-family="'Satoshi', 'Satoshi Variable', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="58" font-weight="800" fill="#f3f3f6" letter-spacing="-1.5">Developer Platform.</text>
+  <!-- Title -->
+  <text x="280" y="170" font-family="'Satoshi', 'Satoshi Variable', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="58" font-weight="800" fill="#f3f3f6" letter-spacing="-1.5">Developer Platform Plugin</text>
 
   <!-- Subtitle -->
-  <text x="280" y="230" font-family="'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#8a98a8">Ship containers to Kubernetes — without the YAML.</text>
+  <text x="282" y="210" font-family="'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="400" fill="#8a98a8">Claude's guide to the Intility Developer Platform.</text>
 
   <!-- ALPHA pill — top-right, Bifrost attn pink -->
   <g transform="translate(1080, 60)">

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Developer Platform Companion — Ship containers to Kubernetes without the YAML." width="100%" />
+  <img src="assets/banner.svg" alt="Developer Platform Plugin — Claude's guide to the Intility Developer Platform." width="100%" />
 </p>
 
 <p align="center">
