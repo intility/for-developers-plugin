@@ -36,13 +36,6 @@
     <line x1="1200" y1="0"   x2="1280" y2="120"/>
   </g>
 
-  <!-- ALPHA pill — top-right, Bifrost attn pink -->
-  <g transform="translate(1080, 60)">
-    <rect width="124" height="28" rx="14" fill="#ff6bc4"/>
-    <circle cx="18" cy="14" r="4" fill="#590d44"/>
-    <text x="71" y="19" font-family="'Satoshi', 'Satoshi Variable', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#590d44" text-anchor="middle">EARLY ALPHA</text>
-  </g>
-
   <!-- Title (centered, "Plugin" accented) -->
   <text x="640" y="175" text-anchor="middle" font-family="'Satoshi', 'Satoshi Variable', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="66" font-weight="800" fill="#f3f3f6" letter-spacing="-1.5" xml:space="preserve">Developer Platform <tspan fill="url(#accent)">Plugin</tspan></text>
 
