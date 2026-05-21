@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/intility/cust-devplatform-plugin/issues">
-    <img src="https://img.shields.io/badge/Status-Early%20Alpha-FFDB70?style=for-the-badge&labelColor=4D3200" alt="Status: Early Alpha" />
+    <img src="https://img.shields.io/badge/Status-Early%20Alpha-FF6BC4?style=for-the-badge&labelColor=590D44" alt="Status: Early Alpha" />
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-AD8AFF?style=for-the-badge&labelColor=2B1E62" alt="License: MIT" />
