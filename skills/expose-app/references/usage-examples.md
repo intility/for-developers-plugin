@@ -22,7 +22,7 @@ You:    Yes
         [curl http://shop.apps.example.com/ → 200]
 
         Your app is live at: http://shop.apps.example.com/
-        (Gateway: internal — only reachable on the customer network)
+        (Gateway: internal — only reachable on your organization's network)
 ```
 
 ---

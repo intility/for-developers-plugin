@@ -83,7 +83,7 @@ Apps:
   ┌─ myapp (namespace: myapp)
   │  image:  ghcr.io/me/myapp:v2
   │  status: 1/1 running
-  │  URL:    http://myapp.apps.example.com  (internal — only reachable on the customer network)
+  │  URL:    http://myapp.apps.example.com  (internal — only reachable on your organization's network)
   │
   ┌─ api (namespace: api)
   │  image:  ghcr.io/me/api:latest
@@ -97,7 +97,7 @@ Status notation:
 - No httproute for a namespace → say "not exposed"
 
 For the gateway label, derive it from the parentRef name:
-- `internal` → `(internal — only reachable on the customer network)`
+- `internal` → `(internal — only reachable on your organization's network)`
 - `public` → `(public — reachable from the open internet)` — flag this visually so the user notices, e.g. with a `⚠` prefix or by underlining it
 
 If you see a `public` route the user may have set up earlier and forgotten about, mention it explicitly at the end of the report: "FYI, `<app>` is on the public gateway — make sure that's still intended."

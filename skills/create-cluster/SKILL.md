@@ -1,6 +1,6 @@
 ---
 name: create-cluster
-description: Creates a single cluster on the Intility Developer Platform for a customer. Use when the user asks to "create a cluster", "get me a cluster", "set up a cluster", or is being routed here by the getting-started skill. Creates ONE cluster with sensible defaults unless the user explicitly asks for more, since this plugin assumes a many-apps-on-one-cluster model.
+description: Creates a single cluster on the Intility Developer Platform for an external user. Use when the user asks to "create a cluster", "get me a cluster", "set up a cluster", or is being routed here by the getting-started skill. Creates ONE cluster with sensible defaults unless the user explicitly asks for more, since this plugin assumes a many-apps-on-one-cluster model.
 allowed-tools:
   - AskUserQuestion
   - Bash(indev account show)

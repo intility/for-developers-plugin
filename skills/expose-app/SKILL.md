@@ -24,9 +24,9 @@ End state: `curl http://<hostname>/` returns a non-error status code.
 
 ## Background (one paragraph, share with the user as needed)
 
-The platform runs **Envoy Gateway**. Two pre-built gateways are typically available: `internal` (only reachable from inside the customer's network) and `public` (open to the internet). You don't create gateways — you just create an HTTPRoute that points at one. TLS is handled for you, so HTTPRoutes use plain HTTP on port 80; users still get HTTPS at the URL.
+The platform runs **Envoy Gateway**. Two pre-built gateways are typically available: `internal` (only reachable from inside the organization's own network) and `public` (open to the internet). You don't create gateways — you just create an HTTPRoute that points at one. TLS is handled for you, so HTTPRoutes use plain HTTP on port 80; users still get HTTPS at the URL.
 
-The domain each gateway uses is the customer's own — not hardcoded in this skill. We read it from the gateway's listener config.
+The domain each gateway uses is the organization's own — not hardcoded in this skill. We read it from the gateway's listener config.
 
 ## Step 0 — Confirm access
 
@@ -48,7 +48,7 @@ oc get gateways -n envoy-gateway-system
 
 Look at the `PROGRAMMED` column. Only offer gateways that show `True`. If no gateway is programmed, stop and tell the user to reach out to the Developer Platform Admins via their collaboration channel (samhandlingskanal) — the cluster isn't ready for ingress.
 
-For each programmed gateway, read its listener hostname template — that's the customer's domain. The pattern is usually a wildcard like `*.apps.example.com`:
+For each programmed gateway, read its listener hostname template — that's the organization's domain. The pattern is usually a wildcard like `*.apps.example.com`:
 
 ```bash
 oc get gateway <gateway-name> -n envoy-gateway-system \
@@ -79,7 +79,7 @@ Putting an app on the public gateway means anyone on the internet can hit it. Mo
 ```
 Q: "Just to confirm — putting this on the public gateway means anyone on the internet can reach it. Are you sure?"
   Options:
-    - "Yes, this is meant to be public (e.g. marketing site, public API, customer-facing app)"
+    - "Yes, this is meant to be public (e.g. marketing site, public API, user-facing app)"
     - "No, switch to internal" — go back and use the internal gateway instead
 ```
 
@@ -182,7 +182,7 @@ curl -s -o /dev/null -w "%{http_code}\n" http://<hostname>/
 
 - `200`–`399` → working
 - `502` / `503` → route is attached but the pod isn't responding. Check `oc get pods -n <namespace>` — is it `Running`? Are the ports right (`Service.targetPort` should match the container port)?
-- Timeout on the `internal` gateway from a remote machine → likely a network reachability issue. The internal hostname may only resolve from inside the customer's network or via VPN. Ask: "Are you connected to the network this cluster is normally reached from?"
+- Timeout on the `internal` gateway from a remote machine → likely a network reachability issue. The internal hostname may only resolve from inside the organization's network or via VPN. Ask: "Are you connected to the network this cluster is normally reached from?"
 
 ## Step 8 — Report
 
