@@ -26,10 +26,10 @@ Substitute the `*` with the app's subdomain (default: the app name).
 
 | Gateway | Reachable from |
 |---|---|
-| `internal` | Only the customer's internal network (the safe default for almost every app) |
+| `internal` | Only the organization's internal network (the safe default for almost every app) |
 | `public` | Anywhere on the internet — only when the app is meant to be public-facing |
 
-The actual domain (`example.com` above) is the customer's own; this skill never assumes a specific domain.
+The actual domain (`example.com` above) is the organization's own; this skill never assumes a specific domain.
 
 ---
 

@@ -4,7 +4,7 @@ Guidance for AI coding agents (and humans) working on this repository.
 
 ## What this is
 
-A Claude Code plugin: eight markdown skills that guide a customer from zero to a running, exposed app on the Intility Developer Platform. There is no application code — the "source" is SKILL.md prompts, YAML/JSON manifests, and reference docs.
+A Claude Code plugin: eight markdown skills that guide an external user from zero to a running, exposed app on the Intility Developer Platform. There is no application code — the "source" is SKILL.md prompts, YAML/JSON manifests, and reference docs.
 
 ## Layout
 

@@ -67,7 +67,7 @@ If `oc whoami` returns their username and `oc get nodes` lists nodes (any status
 - **`oc whoami` says "Unauthorized"**: token didn't get saved — re-run login
 - **`oc get nodes` says "Forbidden"**: the account was created but no roles attached yet. Tell the user to check with their cluster owner or reach out to the Developer Platform Admins via their collaboration channel (samhandlingskanal).
 
-Do not go further down the troubleshooting tree than this. Customers should escalate; they shouldn't be debugging RBAC.
+Do not go further down the troubleshooting tree than this. External users should escalate; they shouldn't be debugging RBAC.
 
 ## Quick reference
 
