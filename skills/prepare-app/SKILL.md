@@ -1,13 +1,11 @@
 ---
 name: prepare-app
 description: Verifies that the user's app is containerized and that an image exists in a registry the cluster can pull from, before deploying. Use when the user wants to deploy something but you don't yet know if they have a Dockerfile or a pushed image, or when the deploy-app skill needs an image reference and doesn't have one yet.
-user-invocable: true
 allowed-tools:
   - AskUserQuestion
-  - Bash(ls *)
-  - Bash(find *)
   - Bash(docker images*)
   - Bash(docker manifest inspect*)
+  - Glob
   - Read
 ---
 
@@ -23,10 +21,10 @@ If both are true, hand off to `deploy-app`. Otherwise, tell the user the smalles
 
 ## Step 1 — Look for a Dockerfile
 
-Search the project root and one level down:
+Search the project root and one level down using the Glob tool:
 
-```bash
-find . -maxdepth 2 \( -name Dockerfile -o -name Containerfile \) 2>/dev/null
+```
+Glob: {Dockerfile,Containerfile,*/Dockerfile,*/Containerfile}
 ```
 
 If found, note the path. If not:

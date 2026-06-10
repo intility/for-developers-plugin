@@ -1,0 +1,15 @@
+{
+  "name": "intility",
+  "description": "Claude Code plugins from Intility — tools for the Intility Developer Platform.",
+  "owner": {
+    "name": "Intility",
+    "email": "devinfra@intility.no"
+  },
+  "plugins": [
+    {
+      "name": "cust-devplatform-plugin",
+      "source": "./",
+      "description": "A friendly companion for getting an app running on the Intility Developer Platform. Helps you create a cluster, deploy a containerized app, expose it on a URL, and update it later — without needing prior Kubernetes experience."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 ---
 name: update-image
 description: Updates the container image on an already-deployed app to a new version. Use when the user says "update my app", "deploy a new version", "ship v2", "bump the image to X", or otherwise wants to roll out a new build of something already running on the cluster.
-user-invocable: true
+argument-hint: "[app] [new-image-or-tag]"
 allowed-tools:
   - AskUserQuestion
   - Bash(oc whoami*)

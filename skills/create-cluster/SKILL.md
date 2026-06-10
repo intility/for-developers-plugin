@@ -1,7 +1,6 @@
 ---
 name: create-cluster
 description: Creates a single cluster on the Intility Developer Platform for a customer. Use when the user asks to "create a cluster", "get me a cluster", "set up a cluster", or is being routed here by the getting-started skill. Creates ONE cluster with sensible defaults unless the user explicitly asks for more, since this plugin assumes a many-apps-on-one-cluster model.
-user-invocable: true
 allowed-tools:
   - AskUserQuestion
   - Bash(indev account show)
@@ -10,6 +9,7 @@ allowed-tools:
   - Bash(indev cluster status*)
   - Bash(indev cluster get*)
   - Bash(indev login)
+  - Bash(oc whoami*)
   - Bash(sleep *)
 ---
 
@@ -27,6 +27,7 @@ The `indev` token has expired. Don't retry the failing command. Run `indev login
 
 ```bash
 indev cluster list
+oc whoami --show-server 2>/dev/null
 ```
 
 If there is already at least one cluster, **do not create another**. Show what's there and ask:
@@ -36,6 +37,15 @@ Q: "You already have a cluster (<name>). Use that one?"
   Options:
     - "Yes, use it" → hand off to the login skill
     - "No, I really need another" → continue
+```
+
+**Also check `oc whoami --show-server`** — clusters provisioned by platform admins or a colleague won't appear in this user's `indev cluster list`, but a working kubeconfig means a cluster exists. If `indev cluster list` is empty but `oc whoami --show-server` returns a server, ask:
+
+```
+Q: "You're already connected to a cluster (<server> — maybe set up by someone else?). Use that instead of creating a new one?"
+  Options:
+    - "Yes, use it" — stop here; they're already logged in, continue the journey on that cluster
+    - "No, create my own" → continue
 ```
 
 This plugin assumes one cluster, many apps in their own namespaces. Only create a second cluster if the user is sure.
