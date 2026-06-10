@@ -5,7 +5,9 @@ allowed-tools:
   - Bash(indev cluster list*)
   - Bash(oc whoami*)
   - Bash(oc get*)
+  - Bash(oc diff*)
   - Bash(grep *)
+  - Glob
 ---
 
 # Status
@@ -14,7 +16,7 @@ allowed-tools:
 
 Give the user a clear one-screen summary of: what cluster they have, what apps are deployed, and what URLs those apps respond on. Useful when coming back to the platform after a break, or just to remember what's where.
 
-This skill is **read-only**. It changes nothing. It also persists nothing — it just queries.
+This skill is **read-only**. It changes nothing. It also persists nothing — it just queries. (`oc diff` in Step 5 is a server-side dry-run — it compares, it doesn't apply.)
 
 ## If `oc` returns "Unauthorized" mid-flow
 
@@ -72,7 +74,30 @@ oc get httproute --all-namespaces \
 
 Match each route to its deployment by namespace.
 
-## Step 5 — Present
+## Step 5 — Drift check (only when local manifests exist)
+
+The manifests in `k8s/<app>/` are supposed to be the source of truth — but the cluster can wander (someone resized in the portal, ran `oc set image` from another machine, edited live). Catch that here, quietly.
+
+First, look for managed manifests with the Glob tool (`k8s/*/*.yaml`). **If there's no `k8s/` directory here, skip this entire step silently** — no "drift not checked" disclaimers, just move on. The user may simply be in a different repo.
+
+For each `k8s/<app>/` directory whose name matches a deployed namespace:
+
+```bash
+oc diff -f k8s/<app>/
+```
+
+Exit code 0 = in sync. Exit code 1 = something differs. Anything else = couldn't check that app — skip it quietly.
+
+Reading the diff — **filter the noise first**. These differences alone do NOT count as drift:
+
+- `metadata.generation`
+- `creationTimestamp`
+- `kubectl.kubernetes.io/last-applied-configuration` annotations
+- anything under `status:`
+
+If only noise remains, the app is in sync. For real differences, translate each into one plain phrase a human cares about: "cluster runs :v3, file says :v2", "replicas 3 on cluster, 1 in file", "cluster has an env var the file doesn't". Never paste the raw diff into the summary — the user can ask for it.
+
+## Step 6 — Present
 
 Show one block per app. Keep it tight — this is a glance, not a report.
 
@@ -84,12 +109,16 @@ Apps:
   │  image:  ghcr.io/me/myapp:v2
   │  status: 1/1 running
   │  URL:    http://myapp.apps.example.com  (internal — only reachable on your organization's network)
+  │  files:  ✓ in sync with k8s/myapp/
   │
   ┌─ api (namespace: api)
   │  image:  ghcr.io/me/api:latest
   │  status: 2/2 running
   │  URL:    (not exposed — run expose-app to give it a URL)
+  │  files:  ⚠ drift — cluster runs 2 replicas, k8s/api/deployment.yaml says 1
 ```
+
+Only include the `files:` line when Step 5 actually ran for that app. No local manifests → no line, no apology.
 
 Status notation:
 - `1/1 running` → ready
@@ -102,13 +131,23 @@ For the gateway label, derive it from the parentRef name:
 
 If you see a `public` route the user may have set up earlier and forgotten about, mention it explicitly at the end of the report: "FYI, `<app>` is on the public gateway — make sure that's still intended."
 
-## Step 6 — Tell them what's next
+## Step 7 — Tell them what's next
 
 End with two-to-three relevant follow-ups based on what you saw. Examples:
 
 - If an app shows `0/1 running`: "Want me to look at the logs for `<name>`?"
 - If an app has no URL: "Want me to expose `<name>` on a URL?"
+- If an app drifted: "The cluster and your files disagree for `<name>` — want me to bring them back in sync?"
 - If everything looks healthy: "Anything you'd like to update or add?"
+
+### Reconciling drift (when they say yes)
+
+This happens *after* the report, with the user's go-ahead — never automatically. Ask one question: which side is right?
+
+- **The file is right** (someone fiddled with the cluster): `oc apply -f k8s/<app>/` puts it back. This is the normal answer — the repo is the source of truth.
+- **The cluster is right** (the change was intentional, e.g. someone resized on purpose): edit the local YAML to match instead, like `update-image` does. Nothing is applied; the file just catches up.
+
+If they're unsure which, show them the relevant diff lines and let them decide. Don't pick for them — reverting someone's intentional change is worse than living with drift for another day.
 
 Don't bullet a long menu — pick the most obvious one or two.
 
@@ -118,6 +157,9 @@ Don't bullet a long menu — pick the most obvious one or two.
 - Don't list pods, configmaps, secrets, services, networkpolicies. The user wants apps + URLs, not raw Kubernetes object soup.
 - Don't include platform-namespace stuff (`openshift-*`, `kube-*`, `envoy-gateway-system`, `argocd`, `olm`, `hypershift`). It's noise to them.
 - Don't try to derive resource usage / CPU / memory. Out of scope.
+- Don't paste raw `oc diff` output into the summary — translate it to one plain phrase per difference.
+- Don't mention drift at all when there are no local manifests to compare against.
+- Don't reconcile drift inside this skill — report it, offer, and act only on the user's answer.
 
 ## Quick reference
 
@@ -126,8 +168,9 @@ indev cluster list
 oc whoami
 oc get deployments -A
 oc get httproute -A
+oc diff -f k8s/<app>/   # exit 0 = in sync, 1 = drift
 ```
 
 ## Examples
 
-See [references/usage-examples.md](references/usage-examples.md) for typical conversations (healthy cluster, broken app, public-route warning, logged out, nothing deployed).
+See [references/usage-examples.md](references/usage-examples.md) for typical conversations (healthy cluster, broken app, public-route warning, drifted manifests, logged out, nothing deployed).
