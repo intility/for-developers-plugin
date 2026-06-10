@@ -131,4 +131,4 @@ See [references/usage-examples.md](references/usage-examples.md) for typical con
 
 - Don't use `kubectl edit` / `oc edit` — opens an editor, fragile.
 - Don't re-apply the whole `deployment.yaml` from disk unless the local file is already updated. Otherwise you'll roll back any image bumps that happened via `oc set image`.
-- Don't suggest `latest` as a tag. Encourage immutable tags (commit SHAs, version numbers).
+- Don't suggest `latest` as a tag. Encourage tags that never move — version numbers like `v2`, `v3` — so it's always clear which build is running and rollback has something to roll back to.

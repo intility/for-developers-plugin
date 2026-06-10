@@ -32,9 +32,9 @@ command -v oc    >/dev/null 2>&1 && echo "oc: ok"    || echo "oc: MISSING"
 command -v docker >/dev/null 2>&1 && echo "docker: ok" || echo "docker: missing (optional)"
 ```
 
-- **`indev` missing** → stop. Send the user to https://developers.intility.com to install it. Nothing else works without this.
-- **`oc` missing** → stop. Same page has install instructions.
-- **`docker` missing** → fine to continue. Only `prepare-app` uses it, and that's optional.
+- **`indev` missing** → stop. On macOS the quickest path is `brew install intility/tap/indev`; otherwise https://developers.intility.com has instructions. Nothing else works without this.
+- **`oc` missing** → stop. macOS: `brew install openshift-cli`; otherwise same page as above.
+- **`docker` missing** → fine to continue. Only `prepare-app` uses it, and only when an image still needs to be built or checked — it helps the user install Docker at that point.
 
 If everything is present, don't say anything — move on silently. Only narrate the check if something is missing.
 
@@ -109,6 +109,7 @@ To add another app, just ask: "deploy another app" — it'll go in its own names
 ## Tone reminders
 
 - Plain language. Avoid "namespace", "manifest", "ingress" on first mention — say what they *do* first, then introduce the term once.
+- Never assume prior Docker, GitHub, git, or Kubernetes experience. Many users are shipping their very first app — that's exactly who this plugin is for, and the skills have from-zero paths for each gap (e.g. `prepare-app` can walk them from "no Dockerfile, no registry" to a pushed image).
 - One command at a time. Don't dump three commands and hope they pick one.
 - Don't apologize for asking questions. One question, then move on.
 - If they're stuck, suggest the next concrete step. Don't open with troubleshooting trees.

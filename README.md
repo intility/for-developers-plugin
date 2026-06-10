@@ -10,6 +10,7 @@
 
 ## Features
 
+- **From zero to URL** — never used Docker, GitHub, or Kubernetes? The skills meet you where you are, one command at a time, including building and pushing your first image
 - **Create a cluster** in one prompt — sensible defaults, no preset/zone/autoscaling questions
 - **Deploy any container** — Claude writes the Namespace, Deployment, and Service for you
 - **Real URLs via HTTPRoute** — `internal` by default, with an explicit security check before exposing anything publicly
@@ -53,6 +54,8 @@ You:    yes
 Claude: [creates HTTPRoute on the internal gateway]
         Live at http://shop.apps.example.com — try it out.
 ```
+
+Don't have an image yet — or not sure what an image is? Start the same way. The plugin notices what's missing and walks you through containerizing, building, and pushing first.
 
 ## What's in the box
 

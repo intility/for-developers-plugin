@@ -37,13 +37,15 @@ Q: "I couldn't find a Dockerfile. Do you have one?"
     - "I have an image already, no Dockerfile needed"
 ```
 
-If "No, not yet": don't try to write one for them on the spot — ask what the app is (language, framework, how it starts), then draft a minimal `Dockerfile` using one of the templates in [references/minimal-dockerfile.md](references/minimal-dockerfile.md). Pick the closest match, adapt names and ports to their app, drop in the file, and stop. They build and push it themselves — this plugin doesn't run `docker build`.
+If "No, not yet": don't try to write one for them on the spot — ask what the app is (language, framework, how it starts), then draft a minimal `Dockerfile` using one of the templates in [references/minimal-dockerfile.md](references/minimal-dockerfile.md). Pick the closest match, adapt names and ports to their app, and drop in the file.
+
+Then walk them through building and pushing it using [references/build-and-push.md](references/build-and-push.md) — one command at a time, they run each one themselves (this plugin doesn't run `docker build`). Don't assume they've used Docker, GitHub, or a registry before; the walkthrough covers the from-zero path including getting a token.
 
 After they confirm the image is pushed, continue with Step 2.
 
 ## Step 2 — Confirm there's a pushed image
 
-This plugin doesn't build or push images for the user — that varies too much by registry. We just need an image reference.
+This plugin doesn't run `docker build`/`docker push` for the user — but it does guide them through running those themselves (see Step 1 / the build-and-push walkthrough). What this step needs to end with is an image reference.
 
 ```
 Q: "What's the image reference for your app?"
@@ -55,7 +57,7 @@ If they don't know what an image reference is, give them one sentence:
 
 > It's the address where your built image lives. After `docker push`, it's the same string you `docker push`-ed to — registry + repo + tag.
 
-If they haven't pushed yet, point them at the registry they're using (or suggest `ghcr.io` if they're on GitHub) and **stop here**. Tell them: "Once you've run `docker push`, come back and we'll deploy it." Do not try to build or push for them.
+If they haven't pushed yet, don't just send them away — offer to walk them through it right now using [references/build-and-push.md](references/build-and-push.md). It covers the full from-zero path: Docker Desktop, a free GitHub account if they don't have one (no git knowledge needed — the account is just the key to the registry), token, login, build, push. One command at a time; they run each themselves. If their team already has a different registry, the same steps apply with that registry's address and login.
 
 ## Step 3 — Optional: sanity check the image exists
 
@@ -71,7 +73,10 @@ Skip this step if `docker` isn't installed locally — it's a nice-to-have, not 
 
 ## Step 4 — What port does the app listen on?
 
-This is the single most-forgotten thing later. Ask now:
+This is the single most-forgotten thing later — and "what port?" is a question many users genuinely can't answer. So **look before you ask**: check the `Dockerfile` for `EXPOSE`, and the code for the usual suspects (`package.json` start script, `app.listen(...)`, `PORT` env defaults, framework config).
+
+- **Found one** → confirm it in one line: "Looks like your app listens on port 3000 — right?" Most users just say yes.
+- **Can't tell** → ask, with hints:
 
 ```
 Q: "What port does your app listen on inside the container?"
@@ -81,6 +86,8 @@ Q: "What port does your app listen on inside the container?"
     - "8080" — common for Java / Go
     - Other (free text)
 ```
+
+If they have no idea even with the hints, offer to look through the code together — it's in there somewhere.
 
 ## Step 5 — Hand off
 
@@ -96,9 +103,11 @@ app:
 ## Tone
 
 - Don't lecture them on containers. If they don't know what an image is, give one sentence, then move on.
+- Never assume they've used Docker, GitHub, or git before. Check with one short question, then meet them where they are — the build-and-push walkthrough exists exactly for this.
 - If they're missing a Dockerfile and the conversation goes deep, *stop* and write a Dockerfile in a separate turn. Don't conflate "deploy" with "containerize from scratch" — these are different sessions.
 
 ## References
 
 - [references/minimal-dockerfile.md](references/minimal-dockerfile.md) — copy-paste Dockerfile templates for Node, Python, Go, and static sites
+- [references/build-and-push.md](references/build-and-push.md) — from-zero walkthrough: Docker Desktop, GitHub account, token, login, build, push
 - [references/usage-examples.md](references/usage-examples.md) — typical conversations (ready to go, no Dockerfile, private registry, image not pushed)
