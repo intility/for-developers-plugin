@@ -65,7 +65,7 @@ If they have `docker` locally, you can confirm the image is actually reachable:
 docker manifest inspect <image-ref>
 ```
 
-A successful response means the cluster can probably pull it too. If it fails with `unauthorized`, the image is private — flag this and tell the user the cluster will also need credentials (an `imagePullSecret`). Note it and continue; `deploy-app` will handle the secret.
+A successful response means the cluster can probably pull it too. If it fails with `unauthorized`, the image is private (or the name has a typo — check that first) — flag it and continue; `deploy-app` sets up pull credentials once for the whole cluster with `indev pullsecret`, so this costs the user one extra question, once.
 
 Skip this step if `docker` isn't installed locally — it's a nice-to-have, not a blocker.
 

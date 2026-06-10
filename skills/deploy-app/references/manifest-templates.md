@@ -56,14 +56,9 @@ spec:
               name: http
 ```
 
-### With a private-registry pull secret
+### Private images
 
-If the image is in a private registry and you've created a `pull-secret` in the namespace, add this under `spec.template.spec`:
-
-```yaml
-      imagePullSecrets:
-        - name: pull-secret
-```
+Don't add `imagePullSecrets` here. Private registries are handled cluster-wide by the platform — `deploy-app` sets it up once with `indev pullsecret create` + `indev cluster pullsecret set`, and every namespace can pull from then on. The manifests stay identical whether the image is public or private.
 
 ### With environment variables (only if the user asks)
 

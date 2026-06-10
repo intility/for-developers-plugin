@@ -26,29 +26,31 @@ You:    1
 
 ---
 
-## Example 2 — Deploy with a private registry
+## Example 2 — Deploy with a private registry (ghcr)
 
 ```
-You:    Deploy private.registry.example.com/team/api:v2, port 8000.
+You:    Deploy ghcr.io/me/api:v2, port 8000. The image is private.
 
 Claude: [oc whoami → ok]
+        [indev pullsecret list → empty]
+
+        Your image is private, so the cluster needs pull credentials — I set
+        this up once and it covers every app on the cluster from now on.
+
+        Q: Registry, username, and access token?
+        (For ghcr.io: your GitHub username + a classic personal access token
+        with the read:packages scope — github.com/settings/tokens)
+You:    ghcr.io / me / ghp_abc123
+
+        [indev pullsecret create --name ghcr --registry ghcr.io:me:ghp_abc123]
+        [indev cluster pullsecret set shop-a3k9x2 ghcr]
+
+        Done — the cluster can now pull from ghcr.io.
 
         What do you want to call this app?
 You:    api
 
-Claude: How many copies should run?
-You:    2
-
-        [mkdir -p k8s/api]
-        [oc get secret pull-secret -n api → not found]
-
-        Your image is in a private registry. I need credentials for it.
-
-        Q: Registry, username, and access token?
-You:    private.registry.example.com / svc-deploy / abc123token
-
-        [oc create secret docker-registry pull-secret ...]
-        [writes manifests, includes imagePullSecrets in deployment]
+        [writes manifests — no imagePullSecrets needed]
         [oc apply x3, rollout status → success]
 
         api is running.
@@ -56,15 +58,16 @@ You:    private.registry.example.com / svc-deploy / abc123token
 
 ---
 
-## Example 3 — Pull secret already exists
+## Example 3 — Pull secret already covers the registry
 
 ```
-You:    Deploy private.registry.example.com/team/another-app:v1.
+You:    Deploy ghcr.io/me/another-app:v1. Also private.
 
-Claude: [oc get secret pull-secret -n another-app → exists]
+Claude: [indev pullsecret list → ghcr (ghcr.io)]
+        [indev pullsecret get ghcr → assigned to shop-a3k9x2]
 
-        Pull secret is already in this namespace — reusing it. No need to ask
-        for credentials again.
+        The cluster already has pull access to ghcr.io — no credentials
+        needed.
 
         [writes manifests, applies, rolls out]
 ```
@@ -83,7 +86,8 @@ Claude: [oc rollout status → progressing]
 
         Can you double-check that `docker pull ghcr.io/me/shop:v1` works from
         your machine? If yes but the cluster still can't pull, the registry is
-        probably private and we need to add a pull secret.
+        probably private — I'll set up cluster-wide pull access with
+        `indev pullsecret` (one question, once, covers all future apps).
 ```
 
 ---
@@ -107,8 +111,9 @@ Claude: [pod status: CrashLoopBackOff]
 
 ## What this skill won't do
 
-- Add ConfigMaps, Secrets (other than the optional pull secret), HPAs,
-  PodDisruptionBudgets, or NetworkPolicies unless you ask
+- Add ConfigMaps, Secrets, HPAs, PodDisruptionBudgets, or NetworkPolicies
+  unless you ask (pull credentials live on the platform via `indev pullsecret`,
+  not in your manifests)
 - Set resource requests/limits (cluster has reasonable defaults)
 - Generate Helm or Kustomize files — plain YAML only
 - Expose the app on a URL — that's `expose-app`'s job

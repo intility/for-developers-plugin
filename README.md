@@ -89,6 +89,7 @@ A few intentional choices that shape how the plugin behaves:
 A few things that aren't obvious up front:
 
 - **First run = clicking "Allow" a lot.** Claude Code asks permission the first time it runs each command. Allow them once and future sessions are quiet.
+- **Private images need indev v1.4+.** Pull credentials are set up once per cluster (`indev pullsecret`), not per app — `brew upgrade intility/tap/indev` if yours is older.
 - **Tokens expire.** Both `indev` and `oc` log out after a few hours. If something fails with "Unauthorized", just say *"log me back in"*.
 - **Different repo, different view.** Claude only sees the manifests in the directory you're working from. Switching repos means switching scope.
 - **`update-image` keeps the local file in sync** — but only if you run it from the repo that contains the manifests. Otherwise, the YAML on disk will drift from the cluster. Run `status` from that repo and it will spot the drift and offer to fix it.
