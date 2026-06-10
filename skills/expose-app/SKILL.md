@@ -1,7 +1,6 @@
 ---
 name: expose-app
 description: Gives a deployed app a public or internal URL by creating an HTTPRoute on the Intility Developer Platform. Use when the user says "expose my app", "give my app a URL", "make my app accessible", "set up ingress", "create a route", or after deploy-app finishes and the user wants the app reachable.
-user-invocable: true
 allowed-tools:
   - AskUserQuestion
   - Bash(oc whoami*)
@@ -9,8 +8,7 @@ allowed-tools:
   - Bash(oc apply*)
   - Bash(oc describe*)
   - Bash(oc delete httproute*)
-  - Bash(sed *)
-  - Bash(curl *)
+  - Bash(curl -s -o /dev/null*)
   - Read
   - Write
   - Edit

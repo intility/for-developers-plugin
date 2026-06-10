@@ -1,13 +1,11 @@
 ---
 name: status
 description: Shows a summary of what the user has on the Intility Developer Platform — their cluster, deployed apps, and the URLs those apps are exposed on. Use when the user asks "what's deployed?", "what do I have running?", "what apps are on my cluster?", "what's the URL for X?", "show me my cluster", or comes back after a break and needs a refresher.
-user-invocable: true
 allowed-tools:
   - Bash(indev cluster list*)
   - Bash(oc whoami*)
   - Bash(oc get*)
   - Bash(grep *)
-  - Bash(sed *)
 ---
 
 # Status
@@ -43,8 +41,10 @@ If it errors, tell the user and suggest the `login` skill. Show the cluster name
 If it works, also grab the cluster name from the API URL — useful for showing hostnames:
 
 ```bash
-oc whoami --show-server | sed 's|https://api[-.]||' | sed 's|[.:].*||'
+oc whoami --show-server
 ```
+
+The server URL looks like `https://api.<cluster-name>.<domain>:6443` — read the cluster name out of it yourself; no text-processing pipeline needed.
 
 ## Step 3 — Deployments
 

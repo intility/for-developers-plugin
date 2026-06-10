@@ -22,15 +22,14 @@
 **1. Install this plugin**
 
 ```bash
-/plugin marketplace add intility
+/plugin marketplace add intility/cust-devplatform-plugin
 /plugin install cust-devplatform-plugin@intility
-
 ```
 
 **2. Tell Claude what you want**
 
 ```
-help me ship my app on Intility Developer PLatform
+help me ship my app on Intility Developer Platform
 ```
 
 That's the whole thing. The plugin detects where you are in the journey and walks you through the rest.
@@ -93,6 +92,7 @@ A few things that aren't obvious up front:
 - **Tokens expire.** Both `indev` and `oc` log out after a few hours. If something fails with "Unauthorized", just say *"log me back in"*.
 - **Different repo, different view.** Claude only sees the manifests in the directory you're working from. Switching repos means switching scope.
 - **`update-image` keeps the local file in sync** — but only if you run it from the repo that contains the manifests. Otherwise, the YAML on disk will drift from the cluster.
+- **macOS / Linux only for now.** The skills assume a POSIX shell. On Windows, use WSL.
 
 ## Found a bug? Have a wish?
 

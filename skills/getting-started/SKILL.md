@@ -1,7 +1,6 @@
 ---
 name: getting-started
 description: Entry point for getting an app running on the Intility Developer Platform. Use when the user says things like "help me deploy", "get me started with Intility", "I want to run my app on the platform", "I'm new to Kubernetes and need to ship something", or "what do I do next?". Figures out where the user is in the journey (no cluster yet → cluster but no app → app deployed but no URL → ready to update) and routes to the right skill.
-user-invocable: true
 allowed-tools:
   - AskUserQuestion
   - Bash(command -v *)
@@ -55,11 +54,13 @@ From the results, classify the situation:
 | Situation | Signal |
 |---|---|
 | Not logged in to `indev` | `indev account show` fails |
-| No cluster yet | `indev cluster list` returns empty / no clusters |
+| No cluster yet | `indev cluster list` returns empty / no clusters **and** `oc whoami` fails |
 | Has a cluster, not logged in | Cluster exists, `oc whoami` fails |
 | Logged in, no app deployed | `oc whoami` works, but the user hasn't mentioned an app namespace |
 | Has an app, needs a URL | User says it's deployed but not reachable |
 | Wants to update | User mentions a new image / new version |
+
+**`oc whoami` working beats an empty `indev cluster list`.** Clusters are sometimes provisioned by platform admins or a colleague, so they don't show up in *this user's* `indev cluster list`. If `oc whoami` succeeds, the user has a cluster — treat the situation as "has a cluster, logged in" and never route to `create-cluster`. Use `oc whoami --show-server` to tell them which cluster they're connected to.
 
 ## Step 2 — Confirm where they want to go
 

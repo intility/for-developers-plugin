@@ -1,7 +1,6 @@
 ---
 name: deploy-app
 description: Generates Kubernetes manifests (Namespace, Deployment, Service) for a containerized app and deploys them to the cluster with oc apply. Use when the user wants to "deploy my app", "ship my app", "run my app on the cluster", or after prepare-app has confirmed they have a containerized image. Defaults to a one-app-per-namespace layout so the same cluster can host many apps cleanly.
-user-invocable: true
 allowed-tools:
   - AskUserQuestion
   - Bash(oc whoami*)
@@ -11,7 +10,6 @@ allowed-tools:
   - Bash(oc rollout*)
   - Bash(oc describe*)
   - Bash(oc logs*)
-  - Bash(oc delete*)
   - Bash(mkdir *)
   - Read
   - Write
