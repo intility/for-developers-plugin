@@ -1,7 +1,7 @@
 {
   "name": "ext-devplatform-plugin",
   "displayName": "Intility Developer Platform",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A friendly companion for getting an app running on the Intility Developer Platform. Helps you create a cluster, deploy a containerized app, expose it on a URL, and update it later — without needing prior Kubernetes experience.",
   "author": {
     "name": "Intility",
@@ -10,5 +10,11 @@
   "homepage": "https://github.com/intility/ext-devplatform-plugin",
   "repository": "https://github.com/intility/ext-devplatform-plugin",
   "license": "MIT",
-  "keywords": ["intility", "kubernetes", "openshift", "beginner", "deploy"]
+  "keywords": [
+    "intility",
+    "kubernetes",
+    "openshift",
+    "beginner",
+    "deploy"
+  ]
 }
