@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/intility/ext-devplatform-plugin/compare/v0.2.0...v0.3.0) (2026-06-10)
+
+
+### Features
+
+* detect manifest drift in the status skill ([1484507](https://github.com/intility/ext-devplatform-plugin/commit/14845075c6af6db7d51ddf6c5a3e81111231eca2))
+* detect manifest drift in the status skill ([5fbdff4](https://github.com/intility/ext-devplatform-plugin/commit/5fbdff44adf575ac2d21be2ab309e2cfb54f381f))
+* from-zero path for citizen developers ([8189917](https://github.com/intility/ext-devplatform-plugin/commit/8189917a457147602f19daa8d98049aa82370686))
+* from-zero path for citizen developers ([5703345](https://github.com/intility/ext-devplatform-plugin/commit/5703345ba873469c851774e6ec29111f3d44ccb3))
+* use cluster-wide indev pull secrets for private registries ([f7142ef](https://github.com/intility/ext-devplatform-plugin/commit/f7142effd82a0b74afd28f275cb3f7eff3a3557e))
+* use cluster-wide indev pull secrets for private registries ([1b7af29](https://github.com/intility/ext-devplatform-plugin/commit/1b7af29a7fe5e35426db42e184c6940fc2c4b41e))
+
 ## [0.2.0](https://github.com/intility/ext-devplatform-plugin/compare/v0.1.0...v0.2.0) (2026-06-10)
 
 
