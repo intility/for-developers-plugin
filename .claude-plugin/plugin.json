@@ -1,7 +1,7 @@
 {
   "name": "ext-devplatform-plugin",
   "displayName": "Intility Developer Platform",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A friendly companion for getting an app running on the Intility Developer Platform. Helps you create a cluster, deploy a containerized app, expose it on a URL, and update it later — without needing prior Kubernetes experience.",
   "author": {
     "name": "Intility",
