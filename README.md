@@ -79,7 +79,7 @@ Eight composable skills. All are user-invocable, so you can ask for any of them 
 A few intentional choices that shape how the plugin behaves:
 
 - **One cluster, many namespaces.** Each app gets its own namespace on a shared cluster — no per-app cluster sprawl.
-- **Manifests in your repo, applied directly.** No GitOps, no ArgoCD. `k8s/<app>/*.yaml` is the source of truth.
+- **Manifests in your repo, applied directly.** No GitOps, no ArgoCD. `k8s/<app>/*.yaml` is the source of truth — and `status` checks the cluster against those files and flags drift. When keeping that in sync by hand starts hurting, that's the signal to graduate to GitOps.
 - **Safe by default.** `internal` gateway is the default; `public` requires an explicit two-step security confirmation.
 - **Detect, don't assume.** Every skill queries the cluster (`oc whoami`, `indev cluster list`, …) at the start instead of carrying hidden state.
 - **Friendly, not lecturing.** Show one command at a time. Introduce a term *after* you've shown what it does.
@@ -91,7 +91,7 @@ A few things that aren't obvious up front:
 - **First run = clicking "Allow" a lot.** Claude Code asks permission the first time it runs each command. Allow them once and future sessions are quiet.
 - **Tokens expire.** Both `indev` and `oc` log out after a few hours. If something fails with "Unauthorized", just say *"log me back in"*.
 - **Different repo, different view.** Claude only sees the manifests in the directory you're working from. Switching repos means switching scope.
-- **`update-image` keeps the local file in sync** — but only if you run it from the repo that contains the manifests. Otherwise, the YAML on disk will drift from the cluster.
+- **`update-image` keeps the local file in sync** — but only if you run it from the repo that contains the manifests. Otherwise, the YAML on disk will drift from the cluster. Run `status` from that repo and it will spot the drift and offer to fix it.
 - **macOS / Linux only for now.** The skills assume a POSIX shell. On Windows, use WSL.
 
 ## Found a bug? Have a wish?

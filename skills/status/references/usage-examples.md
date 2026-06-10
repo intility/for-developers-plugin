@@ -68,7 +68,46 @@ Claude: Cluster: shop-a3k9x2
 
 ---
 
-## Example 4 — Logged out
+## Example 4 — Manifests drifted from the cluster
+
+User is in the repo containing `k8s/`. Someone scaled the app in the portal last week.
+
+```
+You:    What do I have running?
+
+Claude: [indev cluster list → shop-a3k9x2]
+        [oc whoami → ok]
+        [oc get deployments -A, oc get httproute -A]
+        [Glob k8s/*/*.yaml → k8s/shop/]
+        [oc diff -f k8s/shop/ → exit 1: spec.replicas 1 → 3]
+
+        Cluster: shop-a3k9x2  (logged in as you@intility.no)
+
+        Apps:
+          ┌─ shop (namespace: shop)
+          │  image:  ghcr.io/me/shop:v2
+          │  status: 3/3 running
+          │  URL:    http://shop.apps.example.com  (internal)
+          │  files:  ⚠ drift — cluster runs 3 replicas, k8s/shop/deployment.yaml says 1
+
+        The cluster and your files disagree for shop — want me to bring
+        them back in sync?
+
+You:    huh, yes
+
+Claude: Which side is right?
+        - The file (1 replica) — someone changed the cluster and it should go back
+        - The cluster (3 replicas) — the scale-up was intentional, update the file
+
+You:    we scaled it up on purpose
+
+Claude: [edits k8s/shop/deployment.yaml: replicas: 1 → 3]
+        Done — the file now matches the cluster. Nothing was applied.
+```
+
+---
+
+## Example 5 — Logged out
 
 ```
 You:    What's running?
@@ -82,7 +121,7 @@ Claude: [indev cluster list → shop-a3k9x2]
 
 ---
 
-## Example 5 — Nothing deployed yet
+## Example 6 — Nothing deployed yet
 
 ```
 You:    Show me what I've got.
