@@ -6,10 +6,13 @@ allowed-tools:
   - Bash(oc whoami*)
   - Bash(oc get*)
   - Bash(oc apply*)
-  - Bash(oc create*)
   - Bash(oc rollout*)
   - Bash(oc describe*)
   - Bash(oc logs*)
+  - Bash(indev pullsecret*)
+  - Bash(indev cluster pullsecret*)
+  - Bash(indev cluster list*)
+  - Bash(indev login)
   - Bash(mkdir *)
   - Read
   - Write
@@ -33,6 +36,8 @@ If it errors, run the `login` skill first. Don't proceed without auth.
 ## If `oc` returns "Unauthorized" mid-flow
 
 The `oc` token has expired. Don't retry the failing command. Stop where you are, route to the `login` skill, then resume from the failed step.
+
+If an `indev` command says "Unauthorized" instead, run `indev login` and resume.
 
 ## Step 1 — Collect what you need
 
@@ -81,31 +86,37 @@ If the directory doesn't exist, create it. Don't overwrite existing files withou
 
 ### Private image registry
 
-If `prepare-app` flagged the registry as private, you need an image pull secret in the namespace.
+If `prepare-app` flagged the registry as private, the cluster needs pull credentials. The platform handles this **once per cluster, not per app**, via `indev` (requires indev v1.4+). No `imagePullSecrets` in the manifests, no per-namespace secrets.
 
-**First, check whether one already exists** (idempotency — `oc create secret` errors out if the secret is already there):
-
-```bash
-oc get secret pull-secret -n <namespace> 2>/dev/null
-```
-
-- **Exists** → skip ahead, just reference it in the deployment.
-- **Doesn't exist** → ask the user for the registry, username, and password/token (one `AskUserQuestion` with three free-text Other options), then create it:
+**1. Is there already a pull secret that covers this registry?**
 
 ```bash
-oc create secret docker-registry pull-secret \
-  --docker-server=<registry> \
-  --docker-username=<user> \
-  --docker-password=<token> \
-  -n <namespace>
+indev pullsecret list
 ```
 
-Add to the deployment's pod spec:
+- One exists and includes the registry → confirm it's assigned to this cluster (`indev pullsecret get <name>` shows details). If so, nothing to do — continue with the deploy.
+- One exists but for a different registry → add this one to it: `indev pullsecret registry add` (check `--help` for the format), then continue.
+- None → create one (next step).
 
-```yaml
-imagePullSecrets:
-  - name: pull-secret
+**2. Create it**
+
+Ask the user for registry, username, and password/token (one `AskUserQuestion` with free-text options).
+
+> **ghcr.io tip:** username = their GitHub username, token = a **classic** personal access token with the `read:packages` scope (fine-grained tokens don't work with ghcr), created at https://github.com/settings/tokens. Don't let them paste their GitHub password — it won't work.
+
+```bash
+indev pullsecret create --name <name> --registry <registry>:<username>:<token>
 ```
+
+The registry's short name (e.g. `ghcr`) is a fine secret name.
+
+**3. Assign it to the cluster**
+
+```bash
+indev cluster pullsecret set <full-cluster-name> <pull-secret-name>
+```
+
+That's it — the whole cluster can now pull from that registry. Every future private app on this cluster just works, no questions asked.
 
 ## Step 3 — Apply
 
@@ -145,7 +156,7 @@ Common things and the one-line summary to give the user:
 
 | What you see | Tell the user |
 |---|---|
-| `ImagePullBackOff` / `ErrImagePull` | "The cluster can't pull your image. Is the tag correct, and is the registry public (or did we set up a pull secret)?" |
+| `ImagePullBackOff` / `ErrImagePull` | "The cluster can't pull your image. Is the tag correct, and is the registry public? If it's private: does the cluster's pull secret cover it (`indev pullsecret list`), and is the token in it still valid? (PATs expire — recreate the pull secret and reassign it if so.)" |
 | `CrashLoopBackOff` with logs showing app errors | Share the relevant log line. "Your app is crashing on startup — here's what it said: …" |
 | `CreateContainerConfigError` | "Something in the manifest is invalid — usually a missing secret or bad env var." |
 | Pending forever | "Cluster is out of room. Check `oc get nodes` and consider resizing in the portal." |
