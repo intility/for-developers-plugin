@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Developer Platform Plugin — Claude's guide to the Intility Developer Platform." width="100%" />
+  <img src="assets/banner.svg" alt="For Developers Plugin — Claude's guide to Intility For Developers." width="100%" />
 </p>
 
 
