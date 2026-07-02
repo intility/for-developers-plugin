@@ -4,7 +4,7 @@ Thanks for helping make the Developer Platform plugin better. It's an early alph
 
 ## Found a bug? Have a wish?
 
-Open an [issue](https://github.com/intility/ext-devplatform-plugin/issues). Include what you asked Claude to do, what it tried (the failing command is the best clue), and the cluster name if relevant.
+Open an [issue](https://github.com/intility/for-developers-plugin/issues). Include what you asked Claude to do, what it tried (the failing command is the best clue), and the cluster name if relevant.
 
 ## Making changes
 
@@ -18,8 +18,8 @@ Open an [issue](https://github.com/intility/ext-devplatform-plugin/issues). Incl
 3. To try your changes live, add your local checkout as a marketplace in Claude Code:
 
    ```
-   /plugin marketplace add /path/to/ext-devplatform-plugin
-   /plugin install ext-devplatform-plugin@intility
+   /plugin marketplace add /path/to/for-developers-plugin
+   /plugin install for-developers-plugin@intility
    ```
 
 4. Open a PR against `main`. The `validate` check must pass before merging.
