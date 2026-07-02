@@ -5,7 +5,7 @@
 
 
 
-> ⚠️ **Early alpha.** This is the first cut of external-facing skills for the Intility Developer Platform. Skill names, prompts, defaults, and behaviours will change as we learn. Don't depend on it for anything critical yet — but please [open an issue](https://github.com/intility/ext-devplatform-plugin/issues) when something feels off, surprises you, or could be clearer. That feedback is the whole point of an alpha.
+> ⚠️ **Early alpha.** This is the first cut of external-facing skills for the Intility Developer Platform. Skill names, prompts, defaults, and behaviours will change as we learn. Don't depend on it for anything critical yet — but please [open an issue](https://github.com/intility/for-developers-plugin/issues) when something feels off, surprises you, or could be clearer. That feedback is the whole point of an alpha.
 
 
 ## Features
@@ -23,8 +23,8 @@
 **1. Install this plugin**
 
 ```bash
-/plugin marketplace add intility/ext-devplatform-plugin
-/plugin install ext-devplatform-plugin@intility
+/plugin marketplace add intility/for-developers-plugin
+/plugin install for-developers-plugin@intility
 ```
 
 **2. Tell Claude what you want**
@@ -100,7 +100,7 @@ A few things that aren't obvious up front:
 
 ## Found a bug? Have a wish?
 
-Open an issue: **[github.com/intility/ext-devplatform-plugin/issues](https://github.com/intility/ext-devplatform-plugin/issues)**
+Open an issue: **[github.com/intility/for-developers-plugin/issues](https://github.com/intility/for-developers-plugin/issues)**
 
 Helpful to include:
 
