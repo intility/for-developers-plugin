@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.0](https://github.com/intility/ext-devplatform-plugin/compare/v0.3.0...v0.4.0) (2026-07-02)
+
+
+### Features
+
+* rename plugin to for-developers-plugin ([c65ba0c](https://github.com/intility/ext-devplatform-plugin/commit/c65ba0c86f396d8f775fc54e1f9b9cc5d8265eb7))
+* rename plugin to for-developers-plugin ([70dea9e](https://github.com/intility/ext-devplatform-plugin/commit/70dea9efdfc639850f1db22824549a2ca1fc6262)), closes [#12](https://github.com/intility/ext-devplatform-plugin/issues/12)
+* update banner to For Developers branding ([c793743](https://github.com/intility/ext-devplatform-plugin/commit/c793743fd09c5de12c426301382398bad4bec116))
+
 ## [0.3.0](https://github.com/intility/ext-devplatform-plugin/compare/v0.2.0...v0.3.0) (2026-06-10)
 
 
