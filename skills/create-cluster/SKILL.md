@@ -35,7 +35,7 @@ If there is already at least one cluster, **do not create another**. Show what's
 ```
 Q: "You already have a cluster (<name>). Use that one?"
   Options:
-    - "Yes, use it" → hand off to the login skill
+    - "Yes, use it" → hand off to the cluster-login skill
     - "No, I really need another" → continue
 ```
 
@@ -105,7 +105,7 @@ If it's been more than 15 minutes and still `In Deployment`, stop polling and as
 
 ## Step 6 — Hand off
 
-Once `Ready`, tell the user briefly and invoke the **login** skill next:
+Once `Ready`, tell the user briefly and invoke the **cluster-login** skill next:
 
 ```
 Cluster '<full-cluster-name>' is ready. Logging you in now.

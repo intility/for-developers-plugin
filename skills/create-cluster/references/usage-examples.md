@@ -18,7 +18,7 @@ Claude: [indev cluster create --name shop --preset minimal --nodes 2]
         … 6 minutes later …
 
         Cluster 'shop-a3k9x2' is ready. Logging you in now.
-        → invoking login
+        → invoking cluster-login
 ```
 
 ---
@@ -37,7 +37,7 @@ Claude: [indev cluster list → shop-a3k9x2]
         [ ] No, I really need another
 
 You:    Yes
-Claude: → invoking login
+Claude: → invoking cluster-login
 ```
 
 ---

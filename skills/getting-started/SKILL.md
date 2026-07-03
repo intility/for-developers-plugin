@@ -83,8 +83,8 @@ Based on the destination, invoke the right skill in this order. Do not do these 
 
 | Goal | Skill order |
 |---|---|
-| First time, full journey | `create-cluster` → `login` → `prepare-app` → `deploy-app` → `expose-app` |
-| Has cluster, new app | `login` (if needed) → `prepare-app` → `deploy-app` → `expose-app` |
+| First time, full journey | `create-cluster` → `cluster-login` → `prepare-app` → `deploy-app` → `expose-app` |
+| Has cluster, new app | `cluster-login` (if needed) → `prepare-app` → `deploy-app` → `expose-app` |
 | Just need a URL | `expose-app` |
 | Just bumping a version | `update-image` |
 | Coming back after a break — what's running? | `status` |

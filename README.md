@@ -69,7 +69,7 @@ Eight composable skills. All are user-invocable, so you can ask for any of them 
     <tr><td><code>getting-started</code></td><td>You're new and don't know where to begin</td></tr>
     <tr><td><code>status</code></td><td>You're coming back and want to see what's running</td></tr>
     <tr><td><code>create-cluster</code></td><td>You need a cluster</td></tr>
-    <tr><td><code>login</code></td><td>You need to (re)connect to a cluster</td></tr>
+    <tr><td><code>cluster-login</code></td><td>You need to (re)connect to a cluster</td></tr>
     <tr><td><code>prepare-app</code></td><td>You want to check your app is ready to deploy</td></tr>
     <tr><td><code>deploy-app</code></td><td>You're ready to put your app on the cluster</td></tr>
     <tr><td><code>expose-app</code></td><td>You want a URL that points to your app</td></tr>

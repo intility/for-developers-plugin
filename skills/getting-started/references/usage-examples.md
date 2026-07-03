@@ -20,7 +20,7 @@ Claude: [indev cluster create --name shop --preset minimal --nodes 2]
         Creating your cluster (shop-a3k9x2) — this takes 5–10 minutes.
         … 7 minutes later …
         Ready. Logging you in now.
-        → invoking login
+        → invoking cluster-login
 
 Claude: A browser will open. Sign in with your Intility account, then come back here.
 You:    [signs in]

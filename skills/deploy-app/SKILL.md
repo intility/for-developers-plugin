@@ -31,11 +31,11 @@ Generate three manifest files (`namespace.yaml`, `deployment.yaml`, `service.yam
 oc whoami
 ```
 
-If it errors, run the `login` skill first. Don't proceed without auth.
+If it errors, run the `cluster-login` skill first. Don't proceed without auth.
 
 ## If `oc` returns "Unauthorized" mid-flow
 
-The `oc` token has expired. Don't retry the failing command. Stop where you are, route to the `login` skill, then resume from the failed step.
+The `oc` token has expired. Don't retry the failing command. Stop where you are, route to the `cluster-login` skill, then resume from the failed step.
 
 If an `indev` command says "Unauthorized" instead, run `indev login` and resume.
 

@@ -34,11 +34,11 @@ The domain each gateway uses is the organization's own — not hardcoded in this
 oc whoami
 ```
 
-If it errors, route to `login` first.
+If it errors, route to `cluster-login` first.
 
 ## If `oc` returns "Unauthorized" mid-flow
 
-The `oc` token has expired. Don't retry the failing command. Stop where you are, route to the `login` skill, then resume from the failed step.
+The `oc` token has expired. Don't retry the failing command. Stop where you are, route to the `cluster-login` skill, then resume from the failed step.
 
 ## Step 1 — Find the gateways
 
