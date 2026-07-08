@@ -1,5 +1,5 @@
 ---
-name: login
+name: cluster-login
 description: Logs the user into their Intility Developer Platform cluster so they can run kubectl/oc commands against it. Use when the user asks to "log in", "log into the cluster", "connect to my cluster", "oc login", or when another skill needs cluster access and the user is not authenticated.
 allowed-tools:
   - AskUserQuestion
@@ -9,7 +9,7 @@ allowed-tools:
   - Bash(oc get nodes*)
 ---
 
-# Login
+# Cluster login
 
 ## Goal
 

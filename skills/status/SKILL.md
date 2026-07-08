@@ -20,7 +20,7 @@ This skill is **read-only**. It changes nothing. It also persists nothing — it
 
 ## If `oc` returns "Unauthorized" mid-flow
 
-The `oc` token has expired. Don't retry the failing command. Route the user to the `login` skill, then resume.
+The `oc` token has expired. Don't retry the failing command. Route the user to the `cluster-login` skill, then resume.
 
 ## Step 1 — Cluster
 
@@ -38,7 +38,7 @@ Otherwise, capture the full cluster name (including suffix).
 oc whoami
 ```
 
-If it errors, tell the user and suggest the `login` skill. Show the cluster name and basic info from `indev cluster list` first so they at least see what they have, then stop.
+If it errors, tell the user and suggest the `cluster-login` skill. Show the cluster name and basic info from `indev cluster list` first so they at least see what they have, then stop.
 
 If it works, also grab the cluster name from the API URL — useful for showing hostnames:
 

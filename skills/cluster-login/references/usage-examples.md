@@ -72,7 +72,7 @@ Claude: [oc whoami → ok]
 
 ---
 
-## Common phrasings that trigger login
+## Common phrasings that trigger cluster-login
 
 - "log me in"
 - "log into my cluster"
