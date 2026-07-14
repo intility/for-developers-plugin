@@ -62,7 +62,29 @@ The `oc` token has expired. Stop where you are, route to the `cluster-login` ski
 
 ---
 
+## Step 0.5 — Check available CRDs
+
+Before asking the user anything, check which CRDs the operator has installed:
+
+```bash
+oc get crd collectors.otel.intility.io 2>/dev/null
+oc get crd podlogcollectors.otel.intility.io 2>/dev/null
+```
+
+Determine availability from the results:
+
+| Collector CRD | PodLogCollector CRD | Action |
+|---|---|---|
+| Present | Present | Ask Step 1 setup question with all three options (Collector / PodLogCollector / Both) |
+| Present | Missing | Skip the Step 1 setup question entirely — proceed directly as if "Collector" was selected |
+| Missing | Present | Ask Step 1 setup question with only the PodLogCollector option |
+| Missing | Missing | Stop and tell the user: "The otel-operator does not appear to be installed on this cluster — neither the Collector nor PodLogCollector CRD was found." |
+
+---
+
 ## Step 1 — Shared setup questions
+
+**Skip this step if only one CRD is available** (selection is already determined — see Step 0.5).
 
 Call `AskUserQuestion` with these three questions in one shot:
 
@@ -75,6 +97,8 @@ Call `AskUserQuestion` with these three questions in one shot:
       description: "Collects log output from pods you opt in, runs as a DaemonSet on every node"
     - label: "Both"
       description: "Set up a Collector and a PodLogCollector"
+
+  Only include options for CRDs that are available (from Step 0.5).
 
 - header: "Namespace"
   question: "What namespace should the collector(s) run in?"
@@ -114,7 +138,7 @@ Call `AskUserQuestion`:
 
 **If on-cluster:**
 
-1. Ask: "What namespace is the backend running in?"
+1. Ask: "What namespace is the backend running in? (e.g. `monitoring`, `observability`)"
 2. Run:
    ```bash
    oc get svc -n <backend-namespace>
