@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1](https://github.com/intility/for-developers-plugin/compare/v0.4.0...v0.4.1) (2026-07-14)
+
+
+### Bug Fixes
+
+* rename login skill to cluster-login ([7b4d1b1](https://github.com/intility/for-developers-plugin/commit/7b4d1b15340638950ebe4997ba08ece5eaf8f4ee))
+* rename login skill to cluster-login ([e2e16f4](https://github.com/intility/for-developers-plugin/commit/e2e16f447f8ade60ba262c935a62e61884eb2977)), closes [#10](https://github.com/intility/for-developers-plugin/issues/10)
+
 ## [0.4.0](https://github.com/intility/ext-devplatform-plugin/compare/v0.3.0...v0.4.0) (2026-07-02)
 
 
